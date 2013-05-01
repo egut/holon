@@ -1,0 +1,7 @@
+Django==1.5.1
+django-cms==2.4.1
+django-debug-toolbar==0.9.4
+django-extensions==1.1.1
+django-reversion==1.7
+cmsplugin-filer==0.95
+cmsplugin_gallery_filer==0.5.2.1

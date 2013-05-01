@@ -1,14 +1,25 @@
 # -*- coding: utf-8 -*-
-import os
+import os, sys
 gettext = lambda s: s
 
 #Dubble dirnames due to project dir
 PROJECT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
+#Insert local PYTHONPATH 
+sys.path.insert(0, 
+    os.path.join( 
+        os.path.expanduser('~'),
+        ".local",
+        "lib",
+        "python2.7",
+        "site-packages"))
+
+
 # Django settings for holon project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+DEBUG_TOOLBAR = False
 
 ADMINS = (
     ('Eirk Günther', 'egu@mensa.se'),
@@ -168,18 +179,20 @@ INSTALLED_APPS = (
     'cmsplugin_filer_image',
     'cmsplugin_filer_teaser',
     'cmsplugin_filer_video',
+    'cmsplugin_gallery',
     'cms.plugins.googlemap',
     'cms.plugins.link',
     'cms.plugins.snippet',
     'cms.plugins.text',
     'cms.plugins.twitter',
 
+
     #Django Reversion on all CMS docs
     'reversion',
 
     #Development features 
     'django_extensions',
-    'debug_toolbar'
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -222,31 +235,60 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
+#Until issue #88 is fixed and deployed
+DJANGO_CMS_BLOG = False
+
+if DJANGO_CMS_BLOG:
+    INSTALLED_APPS += (
+        #Django CMS UTils
+        'djangocms_utils',
+        'simple_translation',
+        'tagging',
+        'missing',
+        'cmsplugin_blog',
+    )
+
+    #Django CMS Blog
+    JQUERY_JS = 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'
+    JQUERY_UI_JS = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js'
+    JQUERY_UI_CSS = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css'
+
+    MIDDLEWARE_CLASSES += (
+        'cmsplugin_blog.middleware.MultilingualBlogEntriesMiddleware',
+    )
+
+    #CMSPLUGIN_BLOG_PLACEHOLDERS = ('first', 'second', 'third')
+
+
 
 #DEBUG Toolbar
+if DEBUG_TOOLBAR:
+    INSTALLED_APPS += (
+       'debug_toolbar',
+    )
 
-MIDDLEWARE_CLASSES += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
 
-DEBUG_TOOLBAR_PANELS = (   
-    'debug_toolbar.panels.version.VersionDebugPanel',
-    'debug_toolbar.panels.timer.TimerDebugPanel',
-    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-    'debug_toolbar.panels.headers.HeaderDebugPanel',
-    'debug_toolbar.panels.profiling.ProfilingDebugPanel',
-    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-    'debug_toolbar.panels.sql.SQLDebugPanel',
-    'debug_toolbar.panels.template.TemplateDebugPanel',
-    'debug_toolbar.panels.cache.CacheDebugPanel',
-    'debug_toolbar.panels.signals.SignalDebugPanel',
-    'debug_toolbar.panels.logger.LoggingPanel',
-)
+    DEBUG_TOOLBAR_PANELS = (   
+        'debug_toolbar.panels.version.VersionDebugPanel',
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        'debug_toolbar.panels.cache.CacheDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+    )
 
 
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'HIDE_DJANGO_SQL': False,
-    'TAG': 'div',
-    'ENABLE_STACKTRACES' : True,
-}
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+        'HIDE_DJANGO_SQL': False,
+        'TAG': 'div',
+        'ENABLE_STACKTRACES' : True,
+    }

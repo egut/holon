@@ -1,0 +1,17 @@
+
+	<!-- Slider -->
+    <div class="bannerbg">
+        <div class="container clearfix">
+                <div class="flexslider" >
+                <ul class="slides">
+                	{% for image in images %}
+                    <li>
+                        <img src="{{ image.src.url }}" alt="{{ image.alt }}" title="{{ image.title }}" />
+                        <p class="flex-caption">{{ image.title }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+	<!-- /Slider -->
