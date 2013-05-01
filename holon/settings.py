@@ -185,6 +185,7 @@ INSTALLED_APPS = (
     'cms.plugins.snippet',
     'cms.plugins.text',
     'cms.plugins.twitter',
+    'cmsplugin_disqus',
 
 
     #Django Reversion on all CMS docs
@@ -234,6 +235,9 @@ LANGUAGES = [
     ('sv', 'Svenska'),
     ('en', 'English'),
 ]
+
+
+DISQUS_SHORTNAME = 'holonse'
 
 #Until issue #88 is fixed and deployed
 DJANGO_CMS_BLOG = False

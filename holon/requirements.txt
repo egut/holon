@@ -5,3 +5,4 @@ django-extensions==1.1.1
 django-reversion==1.7
 cmsplugin-filer==0.95
 cmsplugin_gallery_filer==0.5.2.1
+cmsplugin-disqus==1.0
