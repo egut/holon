@@ -55,6 +55,9 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
+#To enable debug and sql_query for localhost when debug is on
+INTERNAL_IPS = ("127.0.0.1")
+
 
 MEDIA_ROOT = os.path.join(PROJECT_PATH, "media")
 MEDIA_URL = "/media/"
@@ -69,6 +72,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, "holon", "static"),
+
 )
 
 # List of finder classes that know how to find static files in
@@ -111,6 +116,14 @@ ROOT_URLCONF = 'holon.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'holon.wsgi.application'
 
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
 
 TEMPLATE_DIRS = (
     # The docs say it should be absolute path: PROJECT_PATH is precisely one.

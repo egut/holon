@@ -17,3 +17,4 @@ if settings.DEBUG:
         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
     url(r'', include('django.contrib.staticfiles.urls')),
 ) + urlpatterns
+
