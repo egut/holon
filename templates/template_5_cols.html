@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block base_content %}
+		<div class="col_1_5">
+			{% placeholder column_one %}
+		</div>
+		<div class="col_1_5">
+			{% placeholder column_two %}
+		</div>
+		<div class="col_1_5">
+			{% placeholder column_three %}
+		</div>
+		<div class="col_1_5">
+			{% placeholder column_four %}
+		</div>
+		<div class="col_1_5 last">
+			{% placeholder column_five %}
+		</div>
+{% endblock %}

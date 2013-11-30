@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, sys
+from django.utils.termcolors import colorize
+
 gettext = lambda s: s
 
 #Dubble dirnames due to project dir
@@ -16,7 +18,6 @@ sys.path.insert(0,
 
 
 # Django settings for holon project.
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 DEBUG_TOOLBAR = False
@@ -27,16 +28,47 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#If DEBUG, we can select DB else always production
+if DEBUG:
+    DATABASE_SELECTION = os.environ.get('HOLON_DB', 'localhost')
+else:
+    DATABASE_SELECTION = 'production'
+
 DATABASES = {
-    'default': {
+    'default': {},
+    'localhost': {
         'ENGINE': 'django.db.backends.sqlite3', 
         'NAME': os.path.join(PROJECT_PATH, 'holon.db'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '', 
-        'PORT': '',
+    },
+    'stageing': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'holon_a',
+        'USER': 'holon',
+        'PASSWORD': 'Neklof46',
+        'HOST': 'mysql.holon.se', 
+    },
+    'production': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'holon_a',
+        'USER': 'holon',
+        'PASSWORD': 'Neklof46',
+        'HOST': 'mysql.holon.se', 
     }
 }
+
+HAVE_TOLD = False
+if DATABASES.get(DATABASE_SELECTION, None):
+    DATABASES['default'] = DATABASES[DATABASE_SELECTION]
+    if not HAVE_TOLD:
+        print >> sys.stdout, \
+            colorize("Will use %s as database for this run." % (DATABASE_SELECTION), fg='green')
+        HAVE_TOLD = True
+else:
+    print >> sys.stderr, \
+        colorize("'%s' is not a valid database!" % (DATABASE_SELECTION), fg='red', opts=('bold',))
+    print >> sys.stderr, \
+        colorize("Valid databases are: localhost, stageing, production", fg='red')
+    sys.exit(1)
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -227,13 +259,55 @@ LOGGING = {
 
 #Django CMS Settings  
 CMS_TEMPLATES = (
-    ('template_1.html', 'Template One'),
-    ('template_2.html', 'Template Two'),
+    ('template_full_width.html', gettext('Full width layout')),
+    ('template_2_cols.html', gettext('2 column layout')),
+    ('template_3_cols.html', gettext('3 column layout')),
+    ('template_4_cols.html', gettext('4 column layout')),
+    ('template_5_cols.html', gettext('5 column layout')),
+
 )
 
+#CMS_HIDE_UNTRANSLATED = True
+CMS_LANGUAGES = {
+    1: [
+        {
+            'code': 'en',
+            'name': 'English',
+            'public': True,
+            'hide_untranslated': True,
+        },
+        {
+            'code': 'de',
+            'name': 'Deutsch',
+            'fallbacks': ['en', 'sv'],
+            'public': False,
+        },
+        {
+            'code': 'fr',
+            'name': u'Français',
+            'fallbacks': ['en', 'sv'],
+            'public': False,
+        },
+        {
+            'code': 'sv',
+            'name': 'Svenska',
+            'fallbacks': ['en', 'sv'],
+            'public': True,
+        },
+    ],
+    'default': {
+        'fallbacks': ['sv', 'en', 'fr', 'de'],
+        'redirect_on_fallback':True,
+        'public': True,
+        'hide_untranslated': True,
+    }
+}
+
 LANGUAGES = [
-    ('sv', 'Svenska'),
-    ('en', 'English'),
+    ('sv', u'Svenska'),
+    ('en', u'English'),
+    ('de', u'Deutsch'),
+    ('fr', u'Français')
 ]
 
 

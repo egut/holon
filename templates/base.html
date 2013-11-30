@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags %}
+{% load cms_tags sekizai_tags menu_tags i18n %}
 {% load menu_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
@@ -7,8 +7,8 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <title>Brownie - Professional Portfolio &amp; Business HTML5 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>holon.se - {% page_attribute "page_title" %}</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="robots" content="index,follow" />
@@ -19,7 +19,7 @@
     <!--[if (gte IE 6)&(lte IE 8)]>
     <script type="text/javascript" src="{{ STATIC_URL }}js/html5.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/selectivizr-min.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/ie_7.css" type="text/css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" type="text/css" />
     <![endif]-->
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
@@ -38,14 +38,33 @@
 	<header class="header_bg clearfix">
 		<div class="container clearfix">
         	<!-- Social -->
-            	<ul class="social-links">
-                	<li ><a href="javascript:"><img src="{{ STATIC_URL }}images/facebook.png" alt="Facebook"></a></li>
-                    <li ><a href="javascript:"><img src="{{ STATIC_URL }}images/twitter.png" width="24" height="24" alt="Twitter"></a></li>
-                </ul>
+        	<ul class="social-links">
+            	<li ><a href="javascript:"><img src="{{ STATIC_URL }}images/facebook.png" alt="Facebook"></a></li>
+                <li ><a href="javascript:"><img src="{{ STATIC_URL }}images/twitter.png" width="24" height="24" alt="Twitter"></a></li>
+            </ul>
             <!-- /Social -->
+            <!-- Language -->
+			<div class="languages">
+			{% get_current_language as current_language %}
+            <form>
+				<select id="lang_select" onChange="window.location.href=this.value">
+				{% for lang in current_page.get_languages %}
+					{% spaceless %}
+					{% get_language_info for lang as l %}
+					<option value="{% page_language_url lang %}" {% ifequal current_language lang %}selected="selected"{% endifequal %}>{% language lang %}{{ l.name_local|capfirst }}{% endlanguage %}</option>
+					{% endspaceless %}
+				{% endfor %}
+				</select>
+				<button onClick="window.location.href=$('#lang_select').val()">Go</botton>
+			</form>
+			</div>
+
+			<!-- /Language -->
 			 <!-- Logo -->
 			<div class="logo">
-				<a href="index.html"><img src="{{ STATIC_URL }}images/logo.png" alt="" /></a>
+				<a href="/">holon.se</a>
+
+
 			</div>
 			 <!-- /Logo -->
 			
@@ -65,146 +84,29 @@
 
 	<!-- Content -->
 	<section class="container clearfix">
-    {% placeholder base_content %} 
-    {% block base_content %}{% endblock %}      
-		<!-- START FEATURED COLUMNS -->
-		<div class="col_1_3">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="{{ STATIC_URL }}images/code-icon.png" alt="" class="alignleft" />
-					<h3>Holon</h3>
+		<!-- Page Title -->
+			<header class="container page_info clearfix">
+				
+					<h1 class="regular bottom_line">{% page_attribute "page_title" %}</h1>
+				
+				<div class="clear"></div>
+			</header>
+			
+		<!-- /Page Title -->
 
-				</div>
-				<p>All information about holon <br /> <a href="#">more info</a></p> 
-			</div>
-		</div>
-		<div class="col_1_3">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="{{ STATIC_URL }}images/intuitive-icon.png" alt="" class="alignleft" />
-					<h3>Familjen</h3>
+    {% placeholder top_content %} 
+    {% block base_content %}{% endblock %}
+	{% placeholder botten_content %} 
 
-				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ligula in ipsum vulputate volutpat at ut nisi. Aliquam erat volutpat. Maecenas pretium dolor vitae lectus fermentum convallis bibendum in erat. Donec vitae risus non lorem volutpat fringilla in in metus. Aenean quis eros diam. Proin porta quam at neque congue iaculis. <br /> <a href="#">more info</a></p> 
-			</div>
-		</div>
-		<div class="col_1_3 last">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="{{ STATIC_URL }}images/businesses-icon.png" alt="" class="alignleft" />
-					<h3>Prästabondensgård</h3>
-					
-				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ligula in ipsum vulputate volutpat at ut nisi. Aliquam erat volutpat. Maecenas pretium dolor vitae lectus fermentum convallis bibendum in erat. Donec vitae risus non lorem volutpat fringilla in in metus. Aenean quis eros diam. Proin porta quam at neque congue iaculis. <br /> <a href="#">more info</a></p> 
-			</div>
-		</div>
-		<!-- END FEATURED COLUMNS -->
-		
 		<div class="clear padding10"></div>
-		
-		<div class="recent_works_left">
-			<h2 class="red">Featured Work</h2>
-		</div>
-		<div class="recent_works_arrows">
-			<a href="#" class="prev_item"></a><a href="#" class="next_item"></a>
-		</div>
-		
-		<div class="clear"></div>
-		<div class="line"></div>
-		<div class="clear padding30"></div>
-					
-
-			<div class="recent_works">
-				<ul id="work">
-					<!-- START PORTFOLIO COLUMN #1 -->
-					<li id="id-1" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/featured_work_1.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Open Source Icons</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #1 -->
-					
-					<!-- START PORTFOLIO COLUMN #2 -->
-					<li id="id-2" class="util">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" title="Free Admin Template from eGrappler.com"  class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/featured_work_2.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free Admin Template</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #2 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-3" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" title="Free Social Plugin" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/featured_work_3.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free Social Plugin</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-4" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/portfolio_image_4.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Desing Freebies</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-5" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/portfolio_image_5.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free WordPress Resume Theme</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-6" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/portfolio_image_6.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">jQuery Pagination Plugin</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-7" class="app">
-						<span class="recent_image">
-							<a href="{{ STATIC_URL }}images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="{{ STATIC_URL }}images/portfolio_image_7.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Clean Business HTML Template</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-				</ul>
-			</div>
-		
-	</section>
+	</section>	
 	<!-- /Content -->
-		
-	
 	
 	<section class="homepage_widgets_bg clearfix">
 		<div class="container clearfix">
 		
 			<div class="padding20"></div>
-			
+			{% placeholder top_footer %} 
             
             <!-- START COL 1/2 -->
 			<div class="col_1_2 ">
@@ -272,16 +174,9 @@
 	<footer class="footer_bg_bottom clearfix">
 		<div class="footer_bottom container">
 			<div class="col_2_3">
-				
+			{% placeholder lower_footer %} 
 				<div class="menu">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-                        <li><a href="elements.html">Elements</a></li>
-						<li><a href="portfolio_4_cols.html">Portfolio</a></li>
-						<li><a href="pricing_5_cols.html">Pricing</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
+					{% show_menu 0 1 %} 
 				</div>
 				
 				

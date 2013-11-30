@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block base_content %}
+		<!-- START FEATURED COLUMNS -->
+		<div class="col_1_3">
+			{% placeholder column_one %}
+		</div>
+		<div class="col_1_3">
+			{% placeholder column_two %}
+		</div>
+		<div class="col_1_3 last">
+			{% placeholder column_three %}
+		</div>
+		<!-- END FEATURED COLUMNS -->
+{% endblock %}
