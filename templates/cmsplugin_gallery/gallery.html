@@ -1,17 +1,14 @@
 
-	<!-- Slider -->
-    <div class="bannerbg">
-        <div class="container clearfix">
-                <div class="flexslider" >
-                <ul class="slides">
-                	{% for image in images %}
-                    <li>
-                        <img src="{{ image.src.url }}" alt="{{ image.alt }}" title="{{ image.title }}" />
-                        <p class="flex-caption">{{ image.title }}</p>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+ <div class="nivoWrapper">
+    <div class="nivo-crop"></div>
+    <div class="preload">
+        <center><img src="{{ STATIC_URL }}images/design/preloader.gif" /></center>
     </div>
-	<!-- /Slider -->
+    <div class="nivo hide">
+        {% for image in images %}
+         <img src="{{ image.src.url }}" alt="{{ image.alt }}" title="{{ image.title }}" />
+        {% endfor %}                             
+    
+    </div>
+    <div class="nivo-crop-bottom"></div>
+</div>

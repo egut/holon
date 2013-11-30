@@ -1,199 +1,259 @@
 {% load cms_tags sekizai_tags menu_tags i18n %}
 {% load menu_tags %}
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>holon.se - {% page_attribute "page_title" %}</title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta name="robots" content="index,follow" />
-    <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" /> 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/prettyPhoto.css" type="text/css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/flexslider.css" type="text/css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
-    <!--[if (gte IE 6)&(lte IE 8)]>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/html5.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/selectivizr-min.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" type="text/css" />
-    <![endif]-->
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/all-in-one-min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/setup.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+<meta charset="utf-8" />
+<title>holon.se - {% page_attribute "page_title" %}</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link media="screen" charset="utf-8" rel="stylesheet" href="{{ STATIC_URL }}css/base.css" />
+<link media="screen" charset="utf-8" rel="stylesheet" href="{{ STATIC_URL }}css/skeleton.css" />
+<link media="screen" charset="utf-8" rel="stylesheet" href="{{ STATIC_URL }}css/layout.css" />
+<link media="screen" charset="utf-8" rel="stylesheet" href="{{ STATIC_URL }}css/child.css" />
+<link href="{{ STATIC_URL }}css/nivo-slider.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/animate.min.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="{{ STATIC_URL }}css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+<!--[if (IE 6)|(IE 7)]>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" type="text/css" media="screen" />
+<![endif]-->
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--><script type="text/javascript" language="javascript" src="{{ STATIC_URL }}js/jquery-1-8-2.js"></script><script type="text/javascript" src="{{ STATIC_URL }}js/default.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.carousel.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.color.animation.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.prettyPhoto.js" charset="utf-8"></script>
 
-    {% render_block "css" %}
+{% render_block "css" %}
 </head>
+
 <body>
     {% cms_toolbar %}
+    <div class="page-wrapper">
+       <div class="slug-pattern slider-expand"><div class="overlay"><div class="slug-cut"></div></div></div>
+        <div class="header">
+            <div class="nav">
+                <div class="container">
+                    <!-- Standard Nav (x >= 768px) -->
+                    <div class="standard">
+                        <div class="five column alpha">
+                            <div class="logo">
+                                <a href="/"><h1>Holon</h1>
+                            </div>
+                        </div>
 
-	<!-- Header -->
-	<header class="header_bg clearfix">
-		<div class="container clearfix">
-        	<!-- Social -->
-        	<ul class="social-links">
-            	<li ><a href="javascript:"><img src="{{ STATIC_URL }}images/facebook.png" alt="Facebook"></a></li>
-                <li ><a href="javascript:"><img src="{{ STATIC_URL }}images/twitter.png" width="24" height="24" alt="Twitter"></a></li>
-            </ul>
-            <!-- /Social -->
-            <!-- Language -->
-			<div class="languages">
-			{% get_current_language as current_language %}
-            <form>
-				<select id="lang_select" onChange="window.location.href=this.value">
-				{% for lang in current_page.get_languages %}
-					{% spaceless %}
-					{% get_language_info for lang as l %}
-					<option value="{% page_language_url lang %}" {% ifequal current_language lang %}selected="selected"{% endifequal %}>{% language lang %}{{ l.name_local|capfirst }}{% endlanguage %}</option>
-					{% endspaceless %}
-				{% endfor %}
-				</select>
-				<button onClick="window.location.href=$('#lang_select').val()">Go</botton>
-			</form>
-			</div>
+                         <div class="fourteen column omega tabwrapper" >
+                            <div class="eleven column">
+                                <div class="menu-wrapper">
+                                    <ul class="tabs menu">
+                                    <!-- CMS Menu -->
+                                    {% show_menu 0 100 100 100 %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Language -->
+                            <div class="three column language">
+                                {% get_current_language as current_language %}
+                                <form>
+                                    <select class="navagation" id="lang_select" onChange="window.location.href=this.value">
+                                    {% for lang in current_page.get_languages %}
+                                        {% spaceless %}
+                                        {% get_language_info for lang as l %}
+                                        <option value="{% page_language_url lang %}" {% ifequal current_language lang %}selected="selected"{% endifequal %}>{% language lang %}{{ l.name_local|capfirst }}{% endlanguage %}</option>
+                                        {% endspaceless %}
+                                    {% endfor %}
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Standard Nav Ends, Start of Mini -->
+                    
+                    <div class="mini">
+                        <div class="twelve column alpha omega mini">
+                            <div class="logo">
+                                <a href="/"><h1>Holon</h1></a><!-- Small Logo -->
+                            </div>
+                        </div>
+                        
+                        <div class="thirteen column alpha omega mini">
+                            <span class="eight column navagation-wrapper">
+                                <select class="navagation">
+                                    <option value="" selected="selected">Site Navagation</option>
+                                </select>
+                            </span>
+                            <span class="four column language">
+                                {% get_current_language as current_language %}
+                                <form>
+                                    <select id="lang_select" onChange="window.location.href=this.value">
+                                    {% for lang in current_page.get_languages %}
+                                        {% spaceless %}
+                                        {% get_language_info for lang as l %}
+                                        <option value="{% page_language_url lang %}" {% ifequal current_language lang %}selected="selected"{% endifequal %}>{% language lang %}{{ l.name_local|capfirst }}{% endlanguage %}</option>
+                                        {% endspaceless %}
+                                    {% endfor %}
+                                    </select>
+                                </form>
+                            </span>
+                        </div>
+                        <!-- Language -->
 
-			<!-- /Language -->
-			 <!-- Logo -->
-			<div class="logo">
-				<a href="/">holon.se</a>
-
-
-			</div>
-			 <!-- /Logo -->
-			
-			<!-- Master Nav -->
-			<nav class="main-menu">
-                {% show_menu 1 100 100 100 %} 
-			</nav>
-			<!-- /Master Nav -->
-		</div>
-	</header>
-	<!-- /Header -->
-	
-	<div class="clear"></div>
-
-	
-	<div class="clear padding40"></div>
-
-	<!-- Content -->
-	<section class="container clearfix">
-		<!-- Page Title -->
-			<header class="container page_info clearfix">
-				
-					<h1 class="regular bottom_line">{% page_attribute "page_title" %}</h1>
-				
-				<div class="clear"></div>
-			</header>
-			
-		<!-- /Page Title -->
-
-    {% placeholder top_content %} 
-    {% block base_content %}{% endblock %}
-	{% placeholder botten_content %} 
-
-		<div class="clear padding10"></div>
-	</section>	
-	<!-- /Content -->
-	
-	<section class="homepage_widgets_bg clearfix">
-		<div class="container clearfix">
-		
-			<div class="padding20"></div>
-			{% placeholder top_footer %} 
-            
-            <!-- START COL 1/2 -->
-			<div class="col_1_2 ">
-				<h1 class="regular white bottom_line">About Us</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. Proin et porta ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. Proin et porta ligula.</p> 
-
-				<p>Quisque malesuada lorem at leo volutpat tristique. Nunc sit amet felis imperdiet ante tincidunt viverra sit amet quis ipsum. Aenean metus urna, placerat ut pharetra id, pharetra eget turpis. Sed blandit nunc eget lorem vestibulum malesuada.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. Proin et porta ligula. Quisque malesuada lorem at leo volutpat tristique. Nunc sit amet felis imperdiet ante tincidunt viverra sit amet quis ipsum. </p>
-				
-			</div>
-			<!-- END COL 1/2 -->
-            
-			<!-- START COL 1/2 -->
-            
-           
-           <div class="col_1_2 last" id="why-section">
-				<h1 class="regular white bottom_line">Why Us</h1>
-				<div><a href="#"><img class="alignleft MT0" id="why1" src="{{ STATIC_URL }}images/content-img1.png" alt="img" ></a></div>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo.
-				</p>
+                    </div>
+                    <!-- Start of Mini Ends -->
+                </div> 
                 
-                <div class="clear padding10"></div>
+            </div>
                 
-                <div><a href="#"><img class="alignleft MT0" id="why2" src="{{ STATIC_URL }}images/content-img2.png" alt="img" ></a></div>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo.
-				</p>
-                 <div class="clear padding10"></div>
-                 
-                <div><a href="#"><img class="alignleft MT0" id="why3" src="{{ STATIC_URL }}images/content-img3.png" alt="img" ></a></div>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. 
-				</p>
-                
-                
-			</div>
-           <div class="clear padding10"></div>
-			
-			<!-- end col 1/2 -->
-			
-			
-            
-            <!-- start col -->
-            
-            	<div>
-                
-                <h2 class="regular white bottom_line">All-in-one Template</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. Proin et porta ligula. </p>
-				<div class="clearfix">
-					
-					<a href="javascript:" class="green-button">Buy This Template</a>
-				</div>
-                
+            <div class="shadow"></div>
+            <div class="container">
+                <div class="page-title">
+                    <div class="rg"></div>
+                    <h1>{% page_attribute "page_title" %}</h1>
                 </div>
-            
-            <!-- emd col -->
-            
-			<div class="clear padding80"></div>
-			
-		</div>
-	</section>
-		
-	
-	<!-- footer -->
-	<footer class="footer_bg_bottom clearfix">
-		<div class="footer_bottom container">
-			<div class="col_2_3">
-			{% placeholder lower_footer %} 
-				<div class="menu">
-					{% show_menu 0 1 %} 
-				</div>
-				
-				
-				<div class="clear padding20"></div>
-				
-				
-				<p>
-					&copy; Some Rights Reserved. &nbsp; <a href="#">Legal Notices</a>  
-				</p>
-				
-			</div>
-			
-			<div class="clear padding20"></div>
-		</div>
-	</footer>
-	<!-- /footer -->
+            </div>
+        </div>
+        
+        <div class="body">
+            <div class="body-round"></div>
+            <div class="body-wrapper">
+                <div class="content">
+                        {% placeholder top_content %} 
+                        {% block base_content %}{% endblock %}
+                        {% placeholder botten_content %} 
+                </div>
+
+                <div class="side-shadows"></div>
+
+                <div class="callout-hr"></div>                        
+                <div class="container">
+                    <div class="clear"></div>
+                    <div class="sixteen columns">
+                        <span class="hr remove-bottom"></span>
+                        <blockquote class="standard bottom">
+                            "Making the simple complicated is commonplace; making the complicated simple, awesomely simple, that's creativity" <br />- Charles Mingus
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer style-2">
+            <div class="background"><div class="stitch"></div></div>
+            <div class="foot-nav-bg"></div>
+            <div class="content">
+                <div class="patch"></div>
+                <div class="blur"></div>
+                <div class="pattern">
+                    <div class="container">
+                        <div class="stitch"></div>
+                        <div class="sixteen columns">
+                            <div class="first column alpha">
+                            
+                                <div class="left">
+                                    <div class="logo-caption"></div>
+                                    <h5>Enzyme</h5>
+                                    <p>
+                                        Integer eu ante in arcu viverra vehicula donec tempus consequat faucibus. Donec ne thomp nibh egestas suscipit. Donec sed lacus at massa lorem
+                 pharetra id eleifend leo.
+                                    </p>
+                                    <p class="extra">
+                                        Pellentesque quis felis neque, id adipiscing nunc. Ipsum elit, vitae tempus tellus. Class aptent taciti sociosq desis torquent per conubia nostra, per inceptos himenae dolar eget lacinia sem.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="column ct">
+                                <h5>Recent Tweets:</h5>
+                                <ul class="twitter" id="twitter_update_list"><li>Twitter is loading</li></ul>
+                            </div>
+                            <div class="last column omega">
+                                <h5>Join our Mailing List</h5>
+                                
+                                <div class="input-wrapper">
+                                    <input type="text" placeholder="Email..." id="email" name="email" />
+                                </div>
+                                <div class="right">
+                                    <a href="#" class="button color"><span>Join</span></a>
+                                </div>
+                                <div class="clear"></div>
+                                <span class="hr"></span>
+                                <h5>Stay in Touch</h5>
+                                <ul class="sm foot">
+                                    <li class="facebook"><a href="#facebook">Facebook</a></li>
+                                    <li class="twitter"><a href="#twitter">LinkedIn</a></li>
+                                    <li class="linkedin"><a href="#linkedin">Pinterest</a></li>
+                                    <li class="pinterest"><a href="#pinterest">Pinterest</a></li>
+                                    <li class="dribbble"><a href="#dribbble">Pinterest</a></li>
+                                    <li class="flickr"><a href="#flickr">Pinterest</a></li>
+                                    <li class="flavors"><a href="#flavors">Pinterest</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="sixteen columns alpha omega">
+                        <div class="foot-nav-bg"></div>
+                        <div class="foot-nav">
+                            <div class="copy">
+                                Coptyright © 2011-2012 Enzyme. By Empirical Themes - Remove upon purchase
+                            </div>
+                            <div class="nav">
+                                <a href="#">Home</a>
+                                <a href="#">Portfolio</a>
+                                <a href="#">Contact Us</a>
+                                <a href="#">Terms of Use</a>
+                                <a href="#">Privacy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <script type="text/javascript">
+    <!--
+         $(window).load(function(){
+            $(".nivo.hide").fadeIn(1000);
+            // Setup Slider
+            $('.nivo').nivoSlider({
+                effect: 'random', // Specify sets like: 'fold,fade,sliceDown'
+                slices: 15, // For slice animations
+                boxCols: 8, // For box animations
+                boxRows: 4, // For box animations
+                animSpeed: 500, // Slide transition speed
+                pauseTime: 6000, // How long each slide will show
+                startSlide: 0, // Set starting Slide (0 index)
+                directionNav: true, // Next & Prev navigation
+                controlNav: false, // 1,2,3... navigation
+                controlNavThumbs: false, // Use thumbnails for Control Nav
+                pauseOnHover: true, // Stop animation while hovering
+                manualAdvance: false, // Force manual transitions
+                prevText: 'Prev', // Prev directionNav text
+                nextText: 'Next', // Next directionNav text
+                randomStart: false, // Start on a random slide
+                beforeChange: function(){}, // Triggers before a slide transition
+                afterChange: function(){}, // Triggers after a slide transition
+                slideshowEnd: function(){}, // Triggers after all slides have been shown
+                lastSlide: function(){}, // Triggers when last slide is shown
+                afterLoad: function(){} // Triggers when slider has loaded
+            });
+            $("a[class^='prettyPhoto']").prettyPhoto({social_tools: '' });
+        });
+        $(document).ready(function() {
+            $('.slide.testimonials').contentSlide({'nav': false});
+        });
+    // -->
+    </script>
+    <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
     </div>
     {% render_block "js" %}
 </body>
+
 </html>
