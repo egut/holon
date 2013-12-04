@@ -347,7 +347,7 @@
 		background:url(../images/design/body-960.png) left top repeat-y transparent;
 		width:980px;
 		margin:auto;
-		min-height:50px;
+		min-height:350px;
 		position:relative;
 		z-index:10;
 	}
